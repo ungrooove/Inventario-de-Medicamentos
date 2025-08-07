@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventario de Medicamentos</title>
+  <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAkFBMVEVHcEx91d8Wo6wtqL9NwcwYn68AlLAAl7IUmrURmrQrpr4PmbQ4q7yA4OMvqsGF5/AvxuIMqMApvtJc4eYLweAMudVO2uRf5Ohi4ucIwN8Jm7RDzNgUwuBb4eYAvt9i3uho4ug30OMcw+Ff4udk4+ggyOJy5ekexOGS7O9g4eYEnKIcqa8Unapk4+hv5elu5OiHsKq9AAAAMHRSTlMAFSD+QJL///+dTO6DDOAq///3////////////////Yv//cyDc/7i1G/X//9qZkdJKmvyZAAAA+UlEQVR4AY3SBQKDIAAF0KXdNEqte/e/3RDX/W2f0r3/0+9/tsFwOPr029jzvSB8+3MU+y5B8kJp5vldPC9LnzAvyotVIH9BiErPWokJfUUGIeK8JgS8R9YAAsAHhA0V71FeUTyh0sJI1iFumskdTWdCAILnsqHtmUFWqYstgAAuZk4NY9CGyaUre7U+EyCkNrI152jQlgkuhodc40Z2Vm7ukIDKzokGwBWMNpt7rNvBC7RrGOKbexQ0sOYQELLdPKN/QfAvprMb7vY33LkpTw9AOOR2gai16HDszKZ/BDTg3dJa7YXF3f0qHOlhdJ2g2Tb5spzd/a+cAB1JJDMh69dqAAAAAElFTkSuQmCC" type="image/png" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- <link rel="manifest" href="manifest.json" /> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+  <main>
+
+    <div id="email-container">
+      <form id="form-email-pin">
+        <input type="email" name="email" required placeholder="Ingresá tu email" class="input-email" />
+        <input type="submit" value="Enviar PIN" />
+      </form>
+    </div>
+
+    <div id="pin-container" style="display: none;">
+      <form id="form-validar-pin">
+        <p class="info-msg">Te enviamos un PIN a tu email. Ingresalo abajo para validar.</p>
+        <div class="pin-inputs">
+          <input type="text" maxlength="1" class="pin-digit" />
+          <input type="text" maxlength="1" class="pin-digit" />
+          <input type="text" maxlength="1" class="pin-digit" />
+          <input type="text" maxlength="1" class="pin-digit" />
+          <input type="text" maxlength="1" class="pin-digit" />
+        </div>
+        <button type="submit">Validar PIN</button>
+        <p><a href="#" id="reenviar-pin">¿Olvidaste tu PIN?</a></p>
+      </form>
+    </div>
+
+
+
+
+
+
+
+    <!-- Este contenedor NUNCA se muestra hasta que el PIN se valida correctamente -->
+    <div id="scannerContainer" style="display:none;">
+      <div class="logo-sap">
+        <img src="https://moddatech.com/wp-content/uploads/2025/08/logo-sap.png">
+      </div>
+
+      <h2 class="titulo-med">Inventario de Medicamentos</h2>
+      <div id="scanner" style="width:320px; height:320px;"></div>
+      <button id="btn-escanear" class="btn escanear" onclick="window.iniciarEscaner && window.iniciarEscaner()">Escanear QR</button>
+
+      <div id="ticket" class="hidden" style="margin-top: 20px;">
+        <pre id="ticketInfo"></pre>
+        <div class="cantidad-box">
+          <label for="cantidad">Cantidad:</label>
+          <input type="number" id="cantidad" class="cantidad-input" min="1" />
+          <label for="sapNum" style="text-wrap: nowrap;">N° Inv. SAP:</label>
+          <input type="number" id="sapNum" class="cantidad-input" />
+        </div>
+        <button class="btn agregar" onclick="guardarRegistro()">Agregar a la lista</button>
+      </div>
+
+      <div id="acciones">
+        <button class="btn finalizar" onclick="window.exportarExcel && window.exportarExcel()">Finalizar y Descargar Excel</button>
+      </div>
+      <button onclick="borrarRegistrosLocales()">🗑️ Borrar todo</button>
+      <div id="listaRegistros" style="margin-top: 20px;"></div>
+      <div class="logos">
+        <img src="https://moddatech.com/wp-content/uploads/2025/08/logo-infocenter.png" width="150px">
+        <img class="logo-hosp" src="https://moddatech.com/wp-content/uploads/2025/08/logo-hosp.png" width="50px">
+      </div>
+    </div>
+  </main>
+  
+  <script src="libs/html5-qrcode.min.js"></script>
+  <script src="libs/xlsx.full.min.js"></script>
+  <script src="app.js" defer></script>
+
+</body>
+</html>
+
